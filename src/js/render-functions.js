@@ -1,34 +1,28 @@
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
-
-const galleryContainer = document.getElementById('gallery');
-
-export function renderGallery(images) {
+export const renderGallery = images => {
   const markup = images
     .map(
-      image => `
-    <a href="${image.largeImageURL}" class="gallery-item">
-      <img src="${image.webformatURL}" alt="${image.tags}" />
-      <div class="image-info">
-        <div>Likes <span>${image.likes}</span></div>
-        <div>Views <span>${image.views}</span></div>
-        <div>Comments <span>${image.comments}</span></div>
-        <div>Downloads <span>${image.downloads}</span></div>
-      </div>
-    </a>
-  `
+      ({
+        webformatURL,
+        largeImageURL,
+        tags,
+        likes,
+        views,
+        comments,
+        downloads,
+      }) => `
+        <div class="gallery-item">
+          <a href="${largeImageURL}">
+            <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+          </a>
+          <div class="image-info">
+            <div><span>Likes</span> ${likes}</div>
+            <div><span>Views</span> ${views}</div>
+            <div><span>Comments</span> ${comments}</div>
+            <div><span>Downloads</span> ${downloads}</div>
+          </div>
+        </div>
+      `
     )
     .join('');
-
-  galleryContainer.innerHTML = markup;
-
-  const lightbox = new SimpleLightbox('.gallery-item', {
-    captionsData: 'alt',
-    captionDelay: 250,
-  });
-  lightbox.refresh();
-}
-
-export function clearGallery() {
-  galleryContainer.innerHTML = '';
-}
+  document.querySelector('.gallery').insertAdjacentHTML('beforeend', markup);
+};

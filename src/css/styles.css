@@ -99,3 +99,18 @@
   color: #666;
   font-weight: 400;
 }
+
+.load-more {
+  display: none;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #4a80f6;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.load-more:hover {
+  background-color: #2e5dad;
+}
